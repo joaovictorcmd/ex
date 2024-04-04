@@ -20,7 +20,6 @@ def principal():
 
 @app.route("/sobre", methods=["GET", "POST"])
 def sobre():
-    # notas = {"Maria": 5.0, "Matheus": 7.0, "Henrique": 8.5}
 
     if request.method == "POST":
         if request.form.get("aluno") and request.form.get("nota"):
