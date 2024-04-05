@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import urllib.request, json
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.secret_key = "b'\x16Oc^c\xe4\x07H\xeb\xf0\xf6\xe5\xe1K\x83\xaa'"
 app.run(debug=True)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cursos.sqllite3"
 
@@ -77,10 +78,13 @@ def criar_curso():
     ch = request.form.get("ch")
 
     if request.method == "POST":
-        curso = cursos(nome, descricao, ch)
-        db.session.add(curso)
-        db.session.commit()
-        return redirect(url_for("lista_cursos"))
+        if not nome or not descricao or not ch:
+            flash("Preencha todos os campos do formulário", "error")
+        else:
+            curso = cursos(nome, descricao, ch)
+            db.session.add(curso)
+            db.session.commit()
+            return redirect(url_for("lista_cursos"))
     return render_template("novo_curso.html")
 
 
