@@ -9,6 +9,7 @@
         <th scope="col">Nome do curso</th>
         <th scope="col">Descrição</th>
         <th scope="col">Carga Horária</th>
+        <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,9 @@
         <td>{{curso.nome}}</td>
         <td>{{curso.descricao}}</td>
         <td>{{curso.ch}}</td>
+        <td>
+          <a href="{{curso.id}}/atualiza_curso" class="btn btn-xs btn-secondary">Editar</a>
+        </td>
       </tr>
     {% endfor %}
     </tbody>

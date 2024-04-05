@@ -9,11 +9,11 @@
 {%- endfor %}
 <form action="{{url_for('criar_curso')}}" method="POST" class="form-control">
       <label for="nome" class="form-label">Nome</label>
-      <input type="text" class="form-control" name="nome" placeholder="Nome do Curso">
+      <input type="text" class="form-control" name="nome" placeholder="Nome do Curso" required>
       <label for="descricao" class="form-label">Descrição</label>
-      <input type="text" class="form-control" name="descricao" placeholder="Descrição do Curso">
+      <input type="text" class="form-control" name="descricao" placeholder="Descrição do Curso" required>
       <label for="ch" class="form-label">CH</label>
-      <input type="number" class="form-control" name="ch" placeholder="Carga Horária do Curso">
+      <input type="number" class="form-control" name="ch" placeholder="Carga Horária do Curso" required>
     <button type="submit" class="btn btn-success">Adicionar</button>
     <button type="reset" class="btn btn-outline-success">Limpar</button>
   </form>

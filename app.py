@@ -88,6 +88,22 @@ def criar_curso():
     return render_template("novo_curso.html")
 
 
+@app.route("/<int:id>/atualiza_curso", methods=["GET", "POST"])
+def atualiza_curso(id):
+    curso = cursos.query.filter_by(id=id).first()
+    if request.method == "POST":
+        nome = request.form["nome"]
+        descricao = request.form["descricao"]
+        ch = request.form["ch"]
+
+        cursos.query.filter_by(id=id).update(
+            {"nome": nome, "descricao": descricao, "ch": ch}
+        )
+        db.session.commit()
+        return redirect(url_for("lista_cursos"))
+    return render_template("atualiza_curso.html", curso=curso)
+
+
 # Debug mode
 if __name__ == "__main__":
     with app.app_context():
