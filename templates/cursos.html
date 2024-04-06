@@ -2,6 +2,7 @@
 {% block content %}
 <h2 style="text-align: center">Lista de Cursos</h2>
 <hr>
+<a class="btn btn-primary" href="{{url_for('criar_curso')}}">Adicionar Curso</a>
 <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -13,18 +14,52 @@
       </tr>
     </thead>
     <tbody>
-    {% for curso in cursos %}
+    {% for curso in cursos.items %}
       <tr>
         <th scope="row">{{curso.id}}</th>
         <td>{{curso.nome}}</td>
         <td>{{curso.descricao}}</td>
         <td>{{curso.ch}}</td>
         <td>
-          <a href="{{curso.id}}/atualiza_curso" class="btn btn-xs btn-secondary">Editar</a>
+          <a href="{{curso.id}}/atualiza_curso" class="btn btn-sm btn-secondary">Editar</a>
+          <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" >Excluir</a>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Remover item</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Deseja excluir esse registro?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <a href="{{curso.id}}/remove_curso" class="btn btn-danger">Confirmar</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
-<a class="btn btn-primary" href="{{url_for('criar_curso')}}">Adicionar Curso</a>
+
+{% if cursos.has_prev %}
+    <a href="{{url_for('lista_cursos', page=cursos.prev_num)}}">
+      <i class="bi bi-arrow-left-square" style="font-size:1.5rem" ></i>
+    </a>
+{% else %}
+  Cursos listados
+{% endif %}
+
+{% if cursos.has_next %}
+  <a href="{{url_for('lista_cursos', page=cursos.next_num)}}">
+    <i class="bi bi-arrow-right-square" style="font-size:1.5rem" ></i>
+  </a>
+{% else %}
+  Cursos listados
+{% endif %}
+
 {% endblock content %}
